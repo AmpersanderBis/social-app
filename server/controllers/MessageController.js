@@ -20,7 +20,12 @@ export const create = async (req, res) => {
 		await message.populate({ path: 'model', model: modelType })
 		await message.populate('sender', '-password')
 		await message.save()
-
+		/*
+		const notification = new Notification({ message: message.text, channel: message.model._id, user: message.sender._id })
+		await notification.populate('model', '-password')
+		await notification.populate('sender', '-password')
+		await notification.save()
+		*/
 		res.status(200).json(message)
 	} catch (err) { res.status(500).json(err) }
 }
